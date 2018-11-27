@@ -4,9 +4,11 @@
   "description": "battleship web game",
   "scripts": {
     "dev": "webpack-dev-server -d",
-    "prod": "webpack -p"
+    "prod": "webpack -p",
+    "test": "jest"
   },
   "devDependencies": {
+    "jest": "23.6.0",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.10"
