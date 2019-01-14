@@ -1,3 +1,4 @@
-import Board from './board'
-const board = new Board()
-board.fleetSunk()
+import createBoard from './render'
+const div = createBoard()
+const game = document.getElementById('game')
+game.appendChild(div)
