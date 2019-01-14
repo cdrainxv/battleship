@@ -69,7 +69,7 @@ module.exports = class Board {
         throw new Error('Ship Out of Board Bounds')
       }
 
-      if (this.cells[`${x},${y}`]) {
+      if (typeof this.cells[`${x},${y}`] !== 'undefined') {
         throw new Error(`${(x, y)} is used by a ship`)
       }
     })
@@ -146,9 +146,9 @@ module.exports = class Board {
 
   randomShipPlacement() {
     const shipNames = Object.keys(this.gameShips)
-    const vertical = this.randomVal(1000) % 2 == 0
     while (shipNames.length > 0) {
       let name = shipNames.pop()
+      let vertical = this.randomVal(1000) % 2 == 0
       let [x, y] = [this.randomVal(this._width), this.randomVal(this._height)]
       try {
         this.placeShip(name, { x, y }, vertical)
