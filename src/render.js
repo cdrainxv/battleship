@@ -1,4 +1,25 @@
-const { createElement } = require('./utils/index')
+import { createElement } from './utils'
+import Board from './board'
+
+const clickEvent = (e, board) => {
+  const el = e.target
+  const coord = el.dataset.coord
+
+  if (board.attack(coord)) {
+    el.style.backgroundColor = 'red'
+  } else el.style.backgroundColor = 'white'
+}
+
+const addEvent = (el, board, listener, type = 'click') => {
+  el.addEventListener(
+    type,
+    e => {
+      e.stopPropagation()
+      listener(e, board)
+    },
+    { once: true }
+  )
+}
 
 const createBoard = (width = 10, height = 10) => {
   const div = createElement('div', {
@@ -32,7 +53,18 @@ const createBoard = (width = 10, height = 10) => {
 
       return mark
     })
-  return div
+  return { div, cells }
 }
 
-module.exports = createBoard
+export const game = (() => {
+  const board = new Board()
+  const main = document.getElementById('game')
+  board.randomShipPlacement()
+  const { div, cells } = createBoard()
+
+  cells.forEach(cell => {
+    addEvent(cell, board, clickEvent)
+  })
+
+  main.appendChild(div)
+})()
