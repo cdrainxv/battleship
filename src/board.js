@@ -62,10 +62,10 @@ module.exports = class Board {
     return [{ x, y }, { x: x + size, y }]
   }
 
-  crossedPaths(coords) {
+  crossedPaths(size, coords) {
     coords.forEach(coord => {
       const { x, y } = coord
-      if (x >= this.width || y >= this.height) {
+      if (x > this._width || y > this._height) {
         throw new Error('Ship Out of Board Bounds')
       }
 
@@ -108,7 +108,7 @@ module.exports = class Board {
     const shipCoords = this.shipCoords(start, ship.size, vertical)
 
     try {
-      this.crossedPaths(shipCoords)
+      this.crossedPaths(ship.size, shipCoords)
     } catch (e) {
       throw new Error('Coords are taken')
     }
