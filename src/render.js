@@ -7,21 +7,29 @@ const createBoard = (width = 10, height = 10) => {
       gridTemplateColumns: 'repeat(10, 25px)',
       gridTemplateRows: 'repeat(10, 25px)',
       gridGap: '2px',
-      width: '270px',
+      width: '268px',
       margin: '0 auto'
     }
   })
 
+  let row = 0
   const cells = Array(width * height)
     .fill('')
     .map((cell, index) => {
-      const x = index % width
       const y = Math.floor(index % height)
       const mark = createElement('button', {
-        coord: `${x},${y}`,
-        styles: { backgroundColor: 'cyan', width: '25px', height: '25px' },
+        coord: `${row},${y}`,
+        styles: {
+          backgroundColor: 'cyan',
+          width: '25px',
+          height: '25px',
+          outline: 'none'
+        },
         parent: div
       })
+
+      if (y === width - 1) row++
+
       return mark
     })
   return div
